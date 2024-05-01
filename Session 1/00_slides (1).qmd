@@ -1,6 +1,6 @@
 ---
 title: "Introduction to R"
-author: "Malo Jan"
+author: "Bijay Lal Pradhan"
 incremental: true
 format: revealjs
 self-contained: true
@@ -14,11 +14,12 @@ self-contained: true
 
 ## About Your Instructor {.smaller}
 
--   Malo Jan, PhD candidate in Political Science at CEE Sciences Po
--   Graduated from the master's program one year ago
--   Research focus: Political Parties, Legislative Politics, Political Behavior, and Climate Politics
--   
-    -   And... I'm quite passionate about data science and all of the (fun and unexpected) things we can do with R nowadays
+-   Bijay Lal Pradhan, PhD in Statistics
+    -   Associate Professor of Tribhuvan University
+-   Rajeshwori Malla, PhD in Environmental Science
+    -   Assistant Professor of Tribhuvan University
+-    Hari Prasad Upadhyaya, M.Sc. Statistics
+    -    Assistan Professor of Tribhuvan University
 
 ## The goals of this class {.smaller}
 
