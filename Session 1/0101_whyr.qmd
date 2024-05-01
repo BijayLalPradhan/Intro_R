@@ -1,0 +1,97 @@
+# Why R and Rstudio
+
+## Why programming with R
+
+Before we begin, I believe it's important to provide a brief explanation of why we are doing this. Learning R and RStudio entails acquiring coding and programming skills. But as social scientists, why should we engage in this endeavor ? Why invest time in mastering something that might seem intricate ? To analyze quantitative data effectively, we require a computer to assist us in tasks like data reading, manipulation, visualization, and modeling. In achieving this goal, social scientists have traditionally depended on tools like Excel or commercially available statistical software such as STATA, SPSS, or SAS. However, the trend is shifting towards the use of R, and it is becoming increasingly popular.
+
+### Free and open-source
+
+Unlike main statistical softwares, R is free and open source. It is collaboratively developed by a community of programmers who continuously adapt the language to incorporate new tools and functionalities.
+
+### Reproducibility
+
+Another compelling reason for embracing a programming language for quantitative analysis is its role in promoting reproducibility. You might be familiar with the concept of the reproducibility crisis in the scientific community. Reproducibility revolves around the notion that an identical analysis can be faithfully replicated using the same code and dataset by your future self and other researchers. Over the past decades, researchers have attempted to reproduce analyses conducted by others, often with limited success. This has raised concerns of published results. In recent times, many journals require authors to provide their code and data, ensuring the reproducibility of results as a condition for publication (eg. the [JOP policy](https://www.journals.uchicago.edu/journals/jop/data-replication) on the matter). Presently, when submitting quantitative data-driven research to journals, nearly all of them will request your replication code.
+
+Programming languages like R encourage you to write scripts detailing each step of your analysis. This approach renders your process explicit and easily shareable with others, ensuring that identical steps can be followed to reproduce your results. This is crucial as it offers greater transparency regarding the decisions you, as a quantitative researcher, make. Quantitative analysis entails numerous choices, including variable selection, recoding and decisions about retaining or discarding observations. By encapsulating all these processes in code that anyone can review, a sound practice is established. Coding also fosters reflection on the data manipulation process. Reviewing the code of others makes you more critical about their research.
+
+```{r}
+#| message: false
+#| echo: false
+
+library(tidyverse)
+
+replication <- read_csv("https://raw.githubusercontent.com/malojan/replication/master/data/polsci_replication.csv")
+replication |> 
+  filter(year < 2022) |> 
+  mutate(journal = str_to_upper(journal)) |> 
+  group_by(year, journal) |> 
+  count() |> 
+  ggplot(aes(year, n, color = journal, group = journal)) + 
+  geom_point() +
+  ggtitle("Number of papers having replication code in the top journals in political science") +
+  labs(caption = "Source : Harvard Dataverse") +
+  scale_x_continuous("Year") +
+  scale_y_continuous("Number of articles") +
+  geom_line() +
+  theme_light() + 
+  scale_color_viridis_d() 
+```
+
+### Computational social sciences
+
+Computational social science (CSS) is an interdisciplinary field that employs computational tools, methodologies, and data to address questions relevant to the social sciences. It effectively merges the theories and insights of social sciences with the computational capabilities offered by computer science. The proliferation of digital data, the increasing computational power of computers, and advancements in artificial intelligence are opening numerous opportunities for the social sciences. Learning programming allows you to subsequently engage in web scraping to automatically gather data from the internet, creating new datasets that were previously nonexistent. Additionally, various models can be employed to analyze digital information encompassing text, images, and even audio. While this introductory class doesn't extensively cover these topics, it provides the essential programming skills necessary for implementing these novel techniques. Moreover, if you're enthusiastic about acquiring this knowledge, I can furnish you with various resources.
+
+### Valuable skills on the job market
+
+Looking at it practically, these skills are really valuable in the job market. If you're aiming to stay in academia, having quantitative skills and programming know-how is really important. Many positions now require these skills as prerequisites. Even if you're looking to pursue a career in a different sector, having "data science" skills is incredibly valuable and in high demand. A lot of jobs involve tasks like collecting data, summarizing it, and analyzing it.
+
+```{r }
+#| message: false
+#| echo: false
+
+
+read_csv(here::here("data", "ggtrend_datascience.csv")) |> 
+  janitor::clean_names() |> 
+  mutate(month = ym(mois), 
+         num = data_science_dans_tous_les_pays) |> 
+  ggplot(aes(month, num)) + 
+  geom_line() +
+  theme_light() +
+  scale_x_date("Date") +
+  scale_y_continuous("Relative interest") +
+  ggtitle("Popularity of data science (Google Trends)")
+```
+
+### Programming as a qualitative researcher ?
+
+This class teaches you how to use programming for quantitative data analysis. Programming is commonly linked with quantitative research in social sciences due to its utility in handling extensive datasets. If you tend to lean towards qualitative research, you might feel apprehensive about delving into this realm. I need to persuade you that there are still compelling reasons to learn these skills. Here are a few incentives for students who primarily identify with qualitative research to consider investing resources in acquiring this knowledge.
+
+1.  Allow yourself to be surprised : Many students begin this programm with no initial intention of engaging in quantitative analysis, yet end up doing so. You might surprisingly come across a dataset that is exceptionally relevant to your research and possess the ability to analyze it, even if you initially wouldn't have considered doing so.
+
+2.  Contextualizing your qualitative data: Even if the majority of your data is qualitative, there might be a need for descriptive quantitative indicators or visualizations to place your research within broader trends.
+
+3.  Collecting data : If you aim to qualitatively analyze reports, social media content, archives, or various forms of online text, programming can indeed serve as a valuable means to automate their online collection through web scraping and to effectively store them.
+
+4.  Formatting data: Even within qualitative research, the data you initially collect may not necessarily be in the format you require for analysis. For instance, you might gather archives in image format but desire them in plain text to facilitate efficient analysis. This can be achieved using Optical Character Recognition in R (converting images to text). Moreover, qualitative research frequently involves interviews that are captured in audio format, which you'd prefer to have in a textual format. Recent advancements in AI have made it feasible, with only a few lines of code, to attain high-quality automatic audio-to-text transcriptions for interviews . A knowledge of programming makes this type of algorithm easy to use (have a look on this [tuto with python](https://www.css.cnrs.fr/whisper-pour-retranscrire-des-entretiens/))
+
+5.  Analyzing data: Even if your goal is an in-depth interpretive analysis of qualitative documents or interviews, it can be advantageous to first perform an inductive automated text analysis. This preliminary step can provide you with a preliminary overview of the data and offer insights into what aspects you should concentrate on during your more thorough examination.
+
+### R vs Python
+
+If you already have some programming knowledge, you might be familiar with Python, another highly used language. Python is even more versatile and serves as a general-purpose programming language, making it widely popular in various industries. It's especially valuable if you're interested in delving deeper into machine learning, as most of the new advancements in this field are developed using Python.
+
+On the other hand, R boasts a more specialized statistical focus and proves to be extremely efficient for data manipulation and visualization. It also sees more widespread use in the social sciences compared to Python, which is why we're focusing on learning it here. It's worth noting that both languages come with their own set of advantages and limitations, and as you advance in your skills, you'll likely find yourself working with both at some point.
+
+## Outline
+
+1.  Introduction to R and Rstudio
+
+2.  Manipulating and describing data
+
+3.  Data visualisation
+
+4.  Testing relationships
+
+5.  Cleaning data
+
+6.  Multivariate analysis

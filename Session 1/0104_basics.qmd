@@ -1,0 +1,300 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: inline
+---
+
+# R basics
+
+## R as calculator
+
+First of all, R is a fancy calculator that can be used to perform fundamental arithmeric operations.
+
+```{r}
+3+7+10 # Addition
+4-5 # Substraction
+3*9*10 # Multiplication
+2/6 # Division
+2^2 # Exponentiation
+(2+2)-(4*4)/2^2 # Mix of operations
+
+my_object <- 2
+my_object
+```
+
+## Objects
+
+The results of these operations are shown in the console whenever the code is run. However, these results cannot be directly used again for more operations, which is often something we would like to do. To achieve this, we make use of **objects**. Objects are like containers that we assign values to and keep within our programming environment. Think of them as a way to store information for later use. To create an object in R, we use the assignment operator `<-`.
+
+Let us consider an example from the recent Spanish elections held in June 2023. The mainstream right party emerged as the frontrunner in the election and had the potential to secure an absolute majority in the Congreso, the Spanish parliament. This could have been achieved by forming a coalition with the radical right party Vox. However, they fell short of this goal due to a lower-than-expected seat count. This code below uses objects to store the number of seats obtained by these parties and to calculate the seats required to achieve a majority in the Congreso.
+
+```{r}
+majority <- 350/2+1 # Half of the seats in the Congreso + 1
+pp_seats <- 137 # Seats gained by the mainstream right party (PP)
+vox_seats <- 33 # Seats gained by the radical right party (Vox)
+right_seats <- pp_seats + vox_seats
+majority- right_seats 
+```
+
+After executing these lines, the distinct objects are preserved within the environment pane located in the upper-right section of RStudio.
+
+```{r}
+psoe_seats <- 121
+sumar_seats <- 31
+left_seats <- psoe_seats + sumar_seats
+majority - left_seats
+
+```
+
+
+::: callout-note
+## Exercise
+
+Try to do the same with the two main left-wing parties PSOE and Sumar who respectively obtained 121 and 31 seats.
+
+<details>
+
+<summary>Solution. Click to expand!</summary>
+
+Solution:
+
+</details>
+:::
+
+::: callout-tip
+## Object names
+
+Note that I have written the names of objects with underscores. There are different conventions to write object names in R that you can discover [here](https://style.tidyverse.org/syntax.html#object-names). I personnaly use *snake case* which use lowercase letters and underscores to separate words.
+:::
+
+## Vectors
+
+The objects we used so far contained only one numeric value. However, what we mostly manipulate in R are vectors, which are sequences of different values on which we can perform operations. Vectors can be of different types (eg : numeric, character, logical, date) but they have to be of the same type. And vectors are also unidimensionals which mean they contains only one sequence of values and not several such as matrices do.
+
+We can generate vectors with `c()` which stands for "concatenate".
+
+```{r}
+coalition_seats <- c(right_seats, left_seats)
+coalition_seats
+```
+
+We can also store vectors as objects and do operations on them.
+
+```{r}
+majority - coalition_seats
+
+```
+
+### Characters vectors
+
+So far, we've only used numerical vectors, made up of numbers. But we can also create character vectors, made up of strings using quotes (either `'` or `"`). For instance, I can create two different vectors of spanish candidates, one for the left and one for the right.c
+
+```{r}
+left_candidates <- c("Sanchez", "Diaz")
+right_candidates <- c("Feijoo", "Abascal")
+```
+
+As for other vectors, you can combine them in a single vector which will return the names of all politicians.
+
+```{r}
+candidates <- c(left_candidates, right_candidates)
+candidates
+```
+
+### Logical vectors
+
+Another type of vector in R are logical which is made of Booleans : TRUE or FALSE.
+
+```{r}
+c(TRUE, TRUE, TRUE, FALSE, FALSE, FALSE)
+```
+
+These logical vectors are useful when we want to evaluate whether a condition is True or not. For instance, we could check whether each value of the`left_candidates` is equal to "Abascal". Or check whether the PP obtained more seats than Vox.
+
+```{r}
+left_candidates
+left_candidates == "Diaz"
+
+pp_seats
+vox_seats
+
+pp_seats < vox_seats
+```
+
+### Indexing
+
+When we manipulate vectors, we often want to access specific elements of them, which we call **indexing**, which is performed by using square brackets `[]`. You can index either by position or by name. When I write `candidates[3]`, I want the value of the third element of the `candidates vector`, this is indexing by position. But when I write `candidates[candidates == "Abascal"]`, I index by name because I want the elements that have Abascal as value.
+
+```{r}
+candidates
+
+candidates[4] # Get the third element of the vector
+candidates[-3] # Get everything but the third element of the vector
+candidates[c(1,4)] # Get the first and the fifth elements of the vector
+candidates[1:3] # Get elements from the first to the third
+candidates[candidates == "Abascal"] # Which has Abascal as value
+candidates[candidates != "Abascal"] # Which has not Abascal as value
+candidates[candidates %in% c("Abascal", "Feijoo")]# Which has Abascal or Feijoo
+
+```
+
+## Functions
+
+To manipulate vectors and conduct operations on them, we use *functions*. A function is a reusable block of code that performs a specific task, it takes several input values called arguments and produce an output. Let's say you want to calculate the mean of seats Vox has obtained in the 17 spanish regions. You could calculate the sum of the seats and dividing them by their number. But you could also just the `mean()` function that exists in R and that takes a vector of numbers as argument.
+
+```{r}
+vox_regions <- c(9, 1, 1, 1, 0, 1, 1, 1, 3, 2, 0, 1, 0, 0, 5, 2, 0, 5) 
+mean(vox_regions)
+
+mean_vox <- mean(vox_regions)
+```
+
+In R, functions often expect inputs of specific types. If you pass a character vector containing numeric numbers as strings to a function that expects a numeric vector, it may not behave as expected. As shown below, the function returns a `NA` which means Not available/applicable.
+
+```{r}
+vox_regions2 <- c("9", "1", "1", "1", "0", "1", "1", "1", "3", "2", "0", "1", "0", "0", "5", "2", "0", "5") 
+mean(vox_regions2)
+```
+
+Similarly, computing the sum of the `vox_regions` vector will work as expected but trying to calculate the sum of our `candidates` character vector composed of candidates's names will not give a meaningful result.
+
+```{r error=TRUE}
+sum(vox_regions)
+sum(candidates) # This is an error
+```
+
+If you are not sure about the type of your vectors, you can check with the `class()` function that will give you the answer.
+
+```{r}
+class(vox_regions)
+class(right_candidates)
+```
+
+Sometimes, a vector has not the good type for the operation we want to perform. To check the type of a vector, you can use the family of `is.` functions such as `is.numeric()` and `is.character()` that return a boolean operator. In case the vector is not the right type for our purpose, wan can try to coerce them with the family of `as.` functions such as `as.numeric()` and `as.character()`.
+
+```{r}
+is.numeric(vox_regions2) # Check if numeric
+vox_regions3 <- as.numeric(vox_regions2) # Coerce to numeric
+is.numeric(vox_regions3) # Check again if numeric
+mean(vox_regions3) # Compute the mean
+```
+
+Functions that you will find in R have been created by someone. You can also create your own functions in R. You usually start doing it when you are more advanced so do not worry it you find it hard, it is just for you to know that it is possible. Here I just create a simplified other function to calculate a mean in R.
+
+```{r}
+compute_mean <- function(x) {
+  mean <- sum(x)/length(x)
+  paste0("The mean is of this vector is ", mean)
+}
+compute_mean(vox_regions)
+```
+
+## Missing values
+
+In R, a missing value is represented by the symbol `NA`, which stands for "Not Available." Missing values can arise for a variety of reasons, such as data not being observed or recorded, errors in data collection, or intentional omissions. Understanding and handling missing values is crucial because they can influence the results of your analysis or even cause some functions to return errors. For instance, imagine I haven't found any information about Vox's score in one of the Spanish regions, but I want to retain this information in my vector. So, I add an NA to it.
+
+```{r}
+vox_regions <- c(vox_regions, NA)
+vox_regions
+```
+
+When analyzing data, it's not uncommon to encounter NA values, and it's important to be aware of them. To check if a vector contains NA values, you can use the `is.na()` function. This function returns a logical vector indicating whether each value is NA (`TRUE`) or not (`FALSE`).
+
+```{r}
+is.na(vox_regions) # Check which values of a vector are NAs
+```
+
+This is important because certain functions will not operate properly if there are NA values in your data. For instance, the `mean()` function will return NA if the data contains any NA values
+
+```{r}
+mean(vox_regions)
+```
+
+To deal with `NA`, the `mean()` function has a `na.rm`
+
+```{r}
+mean(vox_regions, na.rm = TRUE) # Remove NA before computing the mean
+```
+
+## Packages and libraries
+
+The functions we've discussed so far, such as `sum()` and `mean()`, come from base R. These are pre-loaded functions available immediately upon starting R. However, many functions you'll encounter aren't part of base R but instead belong to specific packages that individuals or groups have developed. You can think of packages as collections of functions crafted to simplify certain tasks or to introduce new capabilities to R. For example, there's the `tidyverse` package, which I asked you to install before the class
+
+To install a package in R, you can use the `install.packages()` function, passing the name of the package in quotation marks (either single or double). I recommend doing this installation in the console since you don't need to save this step; it's a one-time action. However, every time you start your script or Quarto document, you'll need to load the package. To do this, use the `library()` function, providing the package name as an argument, but without the quotation marks.
+
+
+```{r}
+
+library(tidyverse)
+```
+
+The `tidyverse` isn't just a single package but rather a meta-package, meaning it bundles together several other packages, each with its own set of functions. For example, one of these bundled packages is `stringr`, which offers tools for manipulating character vectors. Since `stringr` is part of the `tidyverse`, if you've already loaded the `tidyverse`, there's no need to load `stringr` separately. With it, you can perform tasks like converting strings in a vector to uppercase or lowercase.
+
+```{r}
+str_to_lower(candidates) # Change strings to lower class
+str_to_upper(candidates) # Change strings to upper class
+str_detect(candidates, "inflation") # Detect if strings that contains a "M"
+```
+
+We can also combine characters vectors together with `str_c()`.
+
+```{r}
+parties <- c("PSOE", "Sumar", "PP", "Vox")
+
+stringr::str_c(candidates, " is the candidate of ", parties)
+```
+
+Note above that I have used, the `::` operator. It lets you reference a specific function from a package without loading the whole package. This is handy when two packages have functions with the same name, ensuring clarity in your code. It's also useful for one-off function uses, avoiding the need to load an entire package. This approach can make code clearer and sometimes faster by reducing loaded dependencies
+
+## Dataframes and tibbles
+
+However, we primarily interact with vectors through the manipulation of dataframes in R. Dataframes are composed of combinations of vectors, which can vary in types. Dataframes are two-dimensionals, with columns (or variables) and rows (or observations). This is what we use for manipulating data, computing statistics and visualization. In this class, we will work with a specific form of dataframe coming from the `tidyverse` packages that is called a [`tibble`](https://posit.co/blog/tibble-1-0-0/#:~:text=Tibbles%20vs%20data%20frames,to%20work%20with%20large%20data). Tibbles make dataframes easier to print and manipulate.
+
+To understand what dataframes look like, let us continue with the results of the spanish elections. I manually create a tibble with the `tibble()` function with different variables about different parties, their seats, their vote share and their candidate.
+
+```{r}
+
+elec <- tibble(
+  party = c("PP", "PSOE", "Vox", "Sumar"), 
+  seats = c(137, 131, 33, 31),
+  vote_share = c(33.1, 31.7, 12.7, 12.3),
+  candidate = c("Feijoo", "Sanchez", "Abascal", "Diaz")
+)
+
+elec
+```
+
+You see now that we have a new object in our Environment Pane with 3 observations and 5 variables. If we want to access only one variable (one vector) of that dataframe, we use the `$` sign. This will return a vector of the values of this variable. You can also get the same result by indicating the position of the column inside `[[]]`.
+
+```{r}
+elec$party # Select the party variable
+elec[[1]] # Double brackets here because not atomic vectors anymore but nested structure
+```
+
+We can also use indexing to get the value of specific cell.
+
+```{r}
+elec$candidate[4] # Get the row 4 of the candidate variable
+elec[4, 1] # get the value of the row 4, column 1
+```
+
+Different functions are availble to get an idea of the informations and shape of the dataframe, which are useful when we load an unknown dataset and we want to understand its structure, what are the observations and variables.
+
+```{r}
+head(elec, 1) # Return x first rows of an object
+tail(elec, 2) # Return x last rows of an object
+dplyr::glimpse(elec) # Get a glimpse of your data
+colnames(elec) # Retrieve column names of the dataframe
+nrow(elec) # Return the number of rows present in the dataframe
+ncol(elec) # Return the number of columns present in the dataframe
+summary(elec) # Return a summary of the variables
+```
+
+You can also create new variables based on the existing ones. Here I create a new variable called `seats_share` by calculating the share of seats each party has in the Congreso (dividing their seats by the total number of seats and multiplying by 100). I also create a variable `disproportionality` by computing the difference of the vote and the seat share of each party. This gives us an idea about how parties are advantaged by the electoral system. Here we see that the biggest parties have more seats than votes in comparison to smallest parties.
+
+```{r}
+elec$seats_share <- elec$seats/350*100
+
+elec$disproportionality <- elec$vote_share - elec$seats_share
+elec
+```

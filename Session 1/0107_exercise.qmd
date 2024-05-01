@@ -1,0 +1,17 @@
+# Exercise 1 {.unnumbered}
+
+1.  Create an R project on your computer in the location and with the name you want (avoid white spaces). This should create a new folder containing an `Rproj` file.
+
+2.  Create a quarto document with the title "Exercise 1" and your name as author. Save the file as ("lastname_ex1.qmd") and save it in the same folder. Visit this [link](https://r4ds.hadley.nz/quarto.html) if you need help with Quarto.
+
+3.  Add a chunk of code and print out your working directory to make sure your R session is launched in the project you've created. The last part of the path displayed should correspond to the project name.
+
+4.  Add a new chunk of code and find a way to import the [Quality of Government environmental indicators](https://www.gu.se/en/quality-government/qog-data/data-downloads/environmental-indicators-dataset) dataset into Rstudio, either in `.dta` format (stata) or `.sav` format (spss).
+
+5.  Once the data has been imported, answer the following questions with both code and writing on the quarto document:
+
+-   What is this dataset about ?
+-   What is the unit of analysis for this dataset ?
+-   Find a way to calculate the mean of the variable wdi_fossil and write a sentence to interpret the result.
+
+6.  Render the quarto document in a pdf format and upload your file on moodle. To compile in pdf, you might need to install the `tinytex` package and it might actually do not work. If it does not, try first in words by using `format : docx`. If you do not succeed some of the exercice and render fail because of errors, add `#| error:true` inside of the chunk of code that produces errors. It will allow me to see your errors.

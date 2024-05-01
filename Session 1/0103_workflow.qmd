@@ -1,0 +1,35 @@
+# Rstudio, scripts, quarto
+
+## How Rstudio is organized
+
+As I already explained, to interact with R, we use the interface of Rstudio. When you open it on your laptop, you will probably see something similar to the screenshot below.
+
+![](figures/getting_rstudio.png)
+
+On the upper right panel, you have what we call the environment. At this stage, you should see a message indicating that your environment is empty. However, when we use data in RStudio, what we manipulate will appear there. For instance, if I import a dataset, I will see in that pane that my dataset has been imported.
+
+On the bottom left panel, you see what we call our working directory. This is where the files, such as the data, that we want to use are stored on our laptop. It is essential to be aware that if you remove a file here from RStudio, it will also be deleted from your laptop. Exercise caution when managing files in this directory to avoid unintentional deletions.
+
+On the left side, you have the console where you can type commands, indicated by the `>` sign. If you type something here and then click on `Enter`, you will see the result. So, if you type `2+2`, it will produce the output `4` just below. Whatever code you produce, the output will appear in the console.
+
+## Scripts
+
+However, when we interact with R, we rarely use the console to type code. Instead, we mostly use *scripts*, which are specific types of documents where you can write code, save it, and reuse it later on. To open a new script, you can go into the menu bar, click on `File > New File > Rscript` (you can also use the shortcut `Ctrl+Shift+N` on Windows/Linux or `Cmd+Shift+N` on macOS). his will open a new document, known as an R script, in the editor on the upper left side of the interface. Here, you can start writing and saving your R code for analysis and projects. You can type again `2+2`. To run a line on a Rscript, place the cursor on the line of code you want to run and press `Ctrl + Enter` (on Windows/Linux) or `Cmd + Enter` (on macOS). Just above the script in RStudio, you will also find a `Run` button that does the same thing. Once you run that code, you should see the output printed in the console. Note that in R scripts, you can write text and comment your code with the `#`. To save your script, simply click on the small disk icon in the editor's toolbar and choose a name for the file (`Ctrl + S` on Windows/Linux or `Cmd + S` on macOS). You will now see it in the files pane at the bottom left of your screen.
+
+```{r}
+2+2 # This is my first code
+```
+
+## Quarto
+
+While many users opt for R scripts for coding, I won't extensively employ them in this class. Instead, I'll be using Quarto documents. You will also be using Quarto as I'll be requesting you to submit your assignments using this format. Quarto constitutes a method of cohesively editing code and text within a single document, a practice termed literate programming. It enables you to compose code, generate output, conduct analyses in the same document, format the content, and subsequently export it to diverse formats like Word documents, PDFs and html. Additionally, Quarto facilitates the creation of slides, dashboards, books, and websites. Personally, I employ Quarto to craft the course materials.
+
+To create a quarto document, click on `File > New File > Quarto Document` in the menu bar. You will see different options appear but for now, uncheck `use virtual markdown editor` and click on create an empty document. There are three main differences with an R script :
+
+-   **YAML** : when you open a quarto document you will have to fill the top matter, called a call a `YAML` which is separated by `---` where you can write different informations and options such as the title, the author, subtitle, abstract, the data and many other things. You can also choose the format of the output by writing `format:` and choosing among `html`, `docx` or `pdf`.
+-   You can type text without the `#` as if you where typing in any text editor
+-   To write code, you need to create what we call a chunk. For this, either go on the menu bar : `Code > Insert Chunk` or `option + Cmd + i` in macOs, `Ctrl+Alt+i` on Windows/Linux. You can then directly type code in that chunk.
+
+![](figures/chunk.png)
+
+To generate a pdf/html/word document, you need to click on Render (`Cmd + Shift + K` in macOs, {\< kbd win=Shift-Ctrl-P \>}}). A new file will appear in your files pane with the output.

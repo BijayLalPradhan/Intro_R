@@ -1,0 +1,194 @@
+---
+title: "Introduction to R"
+author: "Malo Jan"
+incremental: true
+format: revealjs
+self-contained: true
+---
+
+## Outline of the course
+
+-   Presentation of the course
+-   Why are we doing this
+-   R basics
+
+## About Your Instructor {.smaller}
+
+-   Malo Jan, PhD candidate in Political Science at CEE Sciences Po
+-   Graduated from the master's program one year ago
+-   Research focus: Political Parties, Legislative Politics, Political Behavior, and Climate Politics
+-   
+    -   And... I'm quite passionate about data science and all of the (fun and unexpected) things we can do with R nowadays
+
+## The goals of this class {.smaller}
+
+-   Lab sessions of the quantitative methods class (either taught by J. Rovny or J.Carstens)
+-   Gain practical experience applying quantitative methods using R and RStudio
+-   Teach you the basics, give you the willigness to learn more by yourself and prepare for Quant 2
+
+## Prerequisites {.smaller}
+
+-   This class is designed for complete beginners in R and require no programming knowledge
+    -   Results from my poll : you have different background and knowledge
+    -   Advanced students: Feel free to request additional resources and assist others.
+    -   Beginners: No need to feel intimidated; we are here to learn. Ask questions if I'm moving too quickly.
+
+## Course validation
+
+-   Two graded exercises (each 15% during the semester, dates TBA)
+-   Each session include a small exercice (pass/fail). Don't worry about success but give it a try. Learning R is really about practicing.
+
+## Course material {.smaller}
+
+-   [A website](https://malo-jn.quarto.pub/introduction-to-r/)
+-   [A github repo](https://github.com/malojan/intro_r) with the raw material
+-   A Moodle page to upload the exercises.
+-   I will also provide a zip file of each session's content beforehand
+
+::: {.callout-tip title="To go further with github"}
+Visit this [page](https://happygitwithr.com/) to know more about version control with github and R
+:::
+
+## Why R and Rstudio
+
+::: columns
+::: {.column width="50%"}
+Me :
+
+<section><img src="https://pbs.twimg.com/media/DAsjfPjXkAIBoET?format=jpg&amp;name=medium" alt="Alt Text" style="width: 65%; height: auto;"/></section>
+:::
+
+::: {.column width="50%"}
+Probably some of you :
+
+<section><img src="https://pbs.twimg.com/media/E0PU7M7WYAADjhq?format=jpg&amp;name=medium" alt="Alt Text" style="width: 100%; height: 75%;"/></section>
+:::
+:::
+
+## What is programming useful for {.smaller}
+
+-   Programming is the act of instructing computers to perform specific tasks by writing code using programming languages (such as Python, Java, C++ or...**R**)
+-   Why should we doing this as social scientists ?
+    -   Collect, manipulate, reshape and clean data
+    -   Visualize data by creating beautiful plots
+    -   Computing descriptive statistics (such as mean, median, crosstabs..)
+    -   Analyse data through statistical modelling
+    -   And many other things...
+-   But why not other tools such as SPSS/STATA ?
+
+## Free and open source
+
+<br>
+
+::: columns
+::: {.column width="50%"}
+<section><img src="https://external-preview.redd.it/k0qBmQyQ2pb4ie2afBIr-BCeYou0cj8vzGU7-EF_3pM.jpg?width=640&amp;crop=smart&amp;auto=webp&amp;s=8ff0c9c519212a2580b2b10ab9b7d31154068e22" alt="Alt Text" style="width: 100%; height: 150%;"/></section>
+:::
+
+::: {.column width="50%"}
+<ul>
+
+<li>R is free and open source</li>
+
+<li>Big community of users to incorporate new tools and functionalities</li>
+
+</ul>
+:::
+:::
+
+## Reproducibility {.smaller}
+
+<br>
+
+::: columns
+::: {.column width="50%"}
+<section><img src="https://scontent.fcdg3-1.fna.fbcdn.net/v/t1.6435-9/56536171_2318770995033884_4492027486531485696_n.jpg?_nc_cat=110&amp;ccb=1-7&amp;_nc_sid=730e14&amp;_nc_ohc=yvp2586xk_8AX_fAdRA&amp;_nc_ht=scontent.fcdg3-1.fna&amp;oh=00_AfCEPwlsIlRobKfq-qClOIhU2fic8xrHhgpZO9S5mfS_Bw&amp;oe=65193809" style="width: 100%; height: 100%;"/></section>
+:::
+
+::: {.column width="50%"}
+<ul>
+
+<li>Excel is not reproducible</li>
+
+<li>Reproducibility : an identical analysis can be replicated using the same code and dataset</li>
+
+<li>Reproducibility crisis : hard to reproduce most of the quantitative papers published</li>
+
+</ul>
+:::
+:::
+
+## Reproducibility
+
+```{r}
+#| message: false
+#| echo: false
+
+library(tidyverse)
+
+replication <- read_csv("https://raw.githubusercontent.com/malojan/replication/master/data/polsci_replication.csv")
+replication |> 
+  filter(year < 2022) |> 
+  mutate(journal = str_to_upper(journal)) |> 
+  group_by(year, journal) |> 
+  count() |> 
+  ggplot(aes(year, n, color = journal, group = journal)) + 
+  geom_point() +
+  ggtitle("Number of papers having replication code in the top journals in political science") +
+  labs(caption = "Source : Harvard Dataverse") +
+  scale_x_continuous("Year") +
+  scale_y_continuous("Number of articles") +
+  geom_line() +
+  theme_light() + 
+  scale_color_viridis_d() 
+```
+
+## Rise of Computational social sciences
+
+-   CSS as interdisciplinary field employing computational tools and data to adress questions relevant to social sciences
+-   Proliferation of digital data, increasing computational power, advances in AI : opportunities for social sciences
+-   Few exemples requiring programming :
+    -   Web scraping
+    -   Machine Learning
+    -   Text, image and audio as data
+
+## Valuable skills on the job market
+
+```{r }
+#| message: false
+#| echo: false
+
+
+read_csv("data/ggtrend_datascience.csv") |> 
+  janitor::clean_names() |> 
+  mutate(month = ym(mois), 
+         num = data_science_dans_tous_les_pays) |> 
+  ggplot(aes(month, num)) + 
+  geom_line() +
+  theme_light() +
+  scale_x_date("Date") +
+  scale_y_continuous("Relative interest") +
+  ggtitle("Popularity of data science (Google Trends)")
+```
+
+## Programming as a qualitative researcher {.smaller}
+
+-   Programming is commonly linked with quantitative research because automation is really helpful when we have large datasets
+
+-   Programming can be intimidating for more qualitative researcher but...a few reasons to learn those skills
+
+    1.  Allow yourself to be surprised (.eg unexpected datasets on your topic)
+    2.  Contextualizing qualitative data (eg. Plots and descriptives)
+    3.  Collecting data (eg. web scraping)
+    4.  Formatting data (eg. OCR, speech-to-text algorithms such as Whisper)
+    5.  Analyzing data (eg. automated text analysis)
+
+## R vs Python ?
+
+-   R : stastical focus, efficient for data manipulation and modelling, widespread in social sciences
+-   Python : general-purpose programming language, popular in industry, essential for new stuff in machine learning
+-   At one point, if you are interested in data science, learn both.
+
+# 
+
+Let's turn to RStudio to practice!

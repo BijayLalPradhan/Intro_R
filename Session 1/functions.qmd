@@ -1,0 +1,65 @@
+# Useful functions
+
+## Importing data
+
+-   `read.csv()`
+-   `read.csv2()`
+-   `readr::read_csv()`
+-   `readr::read_csv2()`
+-   `readr::read_delim()`
+-   `readr::read_rds()`
+-   `haven::read_sav()`
+-   `haven::read_dta()`
+-   `haven::read_delim()`
+-   `readxl::read_excel()`
+-   `openxlsx::read.xlsx()`
+
+## Getting an idea of the data
+
+-   `nrow()`
+-   `ncol()`
+-   `summary()`
+-   `dplyr::glimpse()`
+
+## Describing data
+
+-   `summary()`
+-   `table()`
+-   `janitor::tabyl()`
+-   `mean()`
+-   `median()`
+-   `sd()`
+
+## Manipulate data
+
+-   `dplyr::count()`
+-   `dplyr::select()`
+-   `dplyr::filter()`
+-   `dplyr::arrange()`
+-   `dplyr::mutate()`
+-   `dplyr::group_by()`
+-   `dplyr::summarise()`
+-   `dplyr::rename()`
+-   `dplyr::rename()`
+-   `dplyr::slice_min()`
+-   `dplyr::slice_max()`
+
+## Clean and recode
+
+-   `tidyr::pivot_longer()`
+-   `tidyr::pivot_wider()`
+
+```{r}
+```
+
+## Testing bivariate relationships
+
+-   `t.test()`
+-   `cor()`
+
+## Modelling
+
+-   `lm()`
+-   `broom::tidy()`
+-   `broom::glance()`
+-   `broom::augment()`

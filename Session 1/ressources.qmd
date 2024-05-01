@@ -1,0 +1,51 @@
+# Ressources
+
+## General ressources
+
+-   [R for Data Science](https://r4ds.hadley.nz/), this is THE R classic by Hadley Wickham, the founder of the tidyverse, you should definitely have a look to better understand what we see in this course 
+-   [Telling stories with data](https://tellingstorieswithdata.com/) by Rohan Alexander : one of my favorite book on data science with R. (a bit more advanced)
+-   [Computational analysis of communication](http://cssbook.net/) by van Atteveldt et al. 
+- [Computational Thinking for Social Scientists](https://jaeyk.github.io/comp_thinking_social_science/) by Jae Yeon Kim
+- [Introduction to data science](http://rafalab.dfci.harvard.edu/dsbook-part-1/R/intro-to-R.html) by Rafael Irizarry
+
+
+
+
+## Other introductions to R
+
+There are plently others introduction to R on the web so feel free to visit some of them. 
+
+-   [Introduction to R](https://bookdown.org/f_lennert/introduction-to-r/), by Felix Lennert 
+- [Introduction to R](https://intro2r.com/) by Alex Douglas et al. 
+- On best practices in R, [What They Forgot to Teach You About R](https://rstats.wtf/) by Jennifer Bryan et al 
+If you want ressources in french, these are the two most comprehensive introduction you will find : 
+
+-   [Introduction à R et au tidyverse](https://juba.github.io/tidyverse/) by Julien Barnier
+-   [Guide pour l'analyse de données d'enquêtes avec R](https://larmarange.github.io/guide-R/) by Joseph Larmarange
+
+
+
+## Reproducibility
+
+- Learn how to use [Quarto](https://quarto.org/docs/guide/)
+- Learn more about reprodubility with [Building reproducible analytical pipelines with R](https://raps-with-r.dev/) by Bruno Rodrigues
+
+- Learn how to connect Github and Rstudio with [Happy git](https://happygitwithr.com/) by Jennifer Bryan
+
+## Statistics
+
+-   Max Blackwell's Harvard [course](https://mattblackwell.github.io/gov2002-book/) on statistical inference with R for a more technical introduction.
+
+## For IR students
+
+-   Federica Genovese' [Syllabus](https://federica-genovese.com/downloads/Syllabus_quant_it.pdf) on Quantitative Methods in R with different specialized articles and ressources
+
+## To go further
+
+Here, different ressources if you want to go further in some areas that are not covered in this course :
+
+### Text analysis and machine learning
+
+- [Text Mining with R](https://www.tidytextmining.com/)
+- [Supervised Machine Learning for Text Analysis with R](https://smltar.com/) by Hvitfeldt and Silge
+- [Tidy Modeling with R](https://www.tmwr.org/) by Kuhn and Silge

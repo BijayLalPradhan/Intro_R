@@ -1,0 +1,29 @@
+# Setting up R and Rstudio
+
+The objective of this course is to provide a practical dimension as a complement to the introductory course on quantitative methods by learning programming. To use these statistical methods, you will learn to code in a programming language called R and through a software called Rstudio. To get the first session off to a good start and avoid wasting too much time setting up, you will need to bring a laptop with R and Rstudio installed. This short tutorial explains how to do it. This should be fairly quick and will make it easier for you to keep track of the first session. If you have any issues to install these programs correctly, **please contact me before the first class**.
+
+R and RStudio are two different things. R is a programming language and software widely used for statistical analysis. While it is possible to use the default software directly for statistical computing, many (if not all) prefer to use RStudio instead. RStudio is an integrated development environment (IDE) that provides a much more functional and user-friendly interface to interact with R, which is why we choose to use it. However, it's important to note that before installing RStudio, you must first install R as RStudio relies on R to function properly.
+
+## Install R {.unnumbered}
+
+You can install R from [CRAN](https://cloud.r-project.org/) (The comprehensive R Archive Network). On the site, you will ll find links to download the version of R you need for your operating system (Windows, Mac or Linux). Then click to download the latest version. Once the download is complete, you need to execute the installer.
+
+## Install Rstudio {.unnumbered}
+
+Once R is set up, you can install Rstudio. For this, go on this [webpage](https://posit.co/download/rstudio-desktop/), download Rstudio and follow the instructions.
+
+## Set preferences and check if everything works {.unnumbered}
+
+Then open Rstudio. If everything worked, something really similar to the screenshot below should appear.
+
+![](figures/getting_rstudio.png)
+
+Then open Rstudio.Rstudio has some default settings that are worth changing to adopt best practices. Please do the following :
+
+-   Tools /Global options/RGeneral : Save workspace to never and uncheck the box `Restore .Rdata into workspace at startup`.
+
+While R provides a series of basic commands for data manipulation, many of the functionalities we will use come from packages that need to be installed and loaded via RStudio. The most well-known package we will use is called "tidyverse." To check if your installation is successful and you are ready to start the course, copy-paste the following code into the console pane. It might take a few minutes, and at the end, you should see the same message as the one below. In that case, you are ready to go. If not, please let me know.
+
+```{r}
+if (!require(tidyverse)) {install.packages("tidyverse")}
+```

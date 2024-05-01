@@ -1,0 +1,70 @@
+# Import and write data
+
+## Getting data
+
+So far, I've been creating data manually for demonstration purposes. However, as we progress, our focus will shift towards analyzing real data. Every data analysis project begins with data acquisition. While you can generate your own data---through methods like surveys, web scraping, or manual data coding---there's a vast array of pre-existing datasets readily available. These datasets are often provided by researchers, governmental bodies, NGOs, companies, international organizations, and more. I highly recommend exploring this comprehensive [list](https://github.com/erikgahner/PolData) of political datasets curated by Erik Gahner Larsen. Throughout this course, we'll use some of these established datasets in political science.
+
+## Read data into R
+
+### File formats, paths and R projects
+
+To analyze data in R, we have to import it. This step, although sounding simple, can pose challenges, especially for beginners. To read a file in R, two critical pieces of information are required: the **file format** and the **path**.
+
+Firstly, data comes in various file formats, which are standardized structures used to store and organize data in digital files. They dictate how information is encoded, structured, and stored within a file, enabling various software programs to understand and interpret the data correctly. The most common format for data is .csv (which stands for comma-separated values) but in political science, you will also find a lot of Stata (`.dta`) and SPSS (`.sav`) files. To enable R to read a file, you'll need to use different functions depending on the file format.
+
+Secondly, R must know the location of the data on your system. A "path" indicates the position of a file or folder within a file system, detailing the series of directories and subdirectories leading to the desired file. There are two types of paths: absolute and relative.
+
+-   The **absolute path** gives the complete location of a file or directory, beginning at the root of the file system. Examples include: `/home/user/documents/myfile.txt` for Unix-like systems, and `C:\Users\user\Documents\myfile.txt` for Windows.
+
+-   A **relative path** indicates the location of a file or directory in relation to the current working directory. For instance, `data/mydata.csv` points to a file named `mydata.csv` in the `data` subdirectory of the present directory.
+
+The **working directory** refers to the directory where R is currently operating. If you access files in R without providing an absolute path, it defaults to searching within this working directory.
+
+You can see your current working directory in R using the `getwd()` function. To set a new working directory, use the `setwd()` function, specifying the desired path as its argument.
+
+Please note that working with absolute path is a very bad practice because nobody will be able to use your code. For this reason, I highly recommend using R projects. An R project is a dedicated workspace for your R work, bundled with its related files, data, scripts, and output documents. When you open an R project, it sets the working directory to the project's folder, ensuring consistent file paths and making it easier to reproduce your work.
+
+From the top left corner of RStudio, click on `File` and then select `New Project`. You'll then be given three options: to create a project in an existing directory, to create one in a new directory, or to check out a project from a version control repository like Git.
+
+If you choose an existing directory, navigate to that directory. If you opt for a new directory, you'll need to name your project and decide its save location on your computer. Once you finalize your choice by clicking `Create Project`, the working directory in RStudio will automatically be set to your project location. This means that any scripts, data files, or outputs you work on will be saved here by default, making them easier to find and reference later.
+
+Inside your project directory, you'll notice a file with an `.Rproj` extension, such as `MyProject.Rproj`. In the future, you can open this file to launch RStudio directly into this project, ensuring the working directory is already set. It's also advisable to set up specific folders within your project directory for different components like scripts, data, and figures. This keeps everything tidy and organized as your project expands.
+
+::: callout-note
+## To go further
+
+To navigate the paths of your projects even better, you can use the `here` package. If you want to know more about it, visit the [page](https://here.r-lib.org/articles/here.html) of the package.
+:::
+
+### Functions to import data in R
+
+There are different functions to import data into R.
+
+-   For CSV (Comma Separated Values) files, the base R function `read.csv()` is commonly used. However, within the tidyverse package suite, the readr package provides the `read_csv()` function, which tends to be faster and more versatile. The `read_csv2()` function is designed for CSV files using semicolons ; as field separators and commas , as decimal points, compared to `read_csv()`which assumes commas as field separators.
+
+-   Excel files can be read using the readxl package, which provides the `read_excel()` function. This function can read both `.xls` and `.xlsx` files.
+
+-   For SPSS data files, you can use the `haven` package. This package contains the function `read_sav()` for `.sav` files.
+
+-   Stata data files, or `.dta` files, can also be read using the haven package with the `read_dta()` function.
+
+-   If you're working with R's native data format, .RData or .RDS, you can use the load() function for .RData files and the readRDS() function for .RDS files.
+
+-   Base R To import data in R, we will use the R base provides several functions to import data such as `read.csv()`. I personnaly prefer using the `readr` package which is part of the tidyverse. To read a csv file, you will need the `read_csv()` function.
+
+All these functions enable you to read a file by specifying its path or its URL on the web. Here, for example, I've read the file containing "data science" Google Trends data, from which I generated the plot I showed you earlier.
+
+```{r}
+library(tidyverse)
+
+ggtrend <- read_csv("data/ggtrend_datascience.csv")
+ggtrend
+```
+
+### Export data
+
+Typically, we might want to save data to our disk after adding information, merging different datasets, and so on. This is useful for later reuse or to share the data with someone else. To achieve this, simply replace 'read' with 'write' in all the functions I've introduced previously. You'll also need to specify the name of the R object containing your data and the path where you wish to export the data.
+
+```{r}
+write_csv(ggtrend, "data/ggtrend_datascience2.csv")
+```
