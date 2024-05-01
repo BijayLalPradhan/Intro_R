@@ -14,9 +14,12 @@ self-contained: true
 
 ## About Your Instructor {.smaller}
 
--   BL Pradhan, PhD in Statistics (Associate Professor in TU)
--   R Malla, PhD in Environmental Science (Assistant Prof. in TU)
--   HP Upadhyaya, Masters in Statistics (Assistant Prof in TU)
+-   Bijay Lal Pradhan, PhD in Statistics
+    -   Associate Professor of Tribhuvan University
+-   Rajeshwori Malla, PhD in Environmental Science
+    -   Assistant Professor of Tribhuvan University
+-    Hari Prasad Upadhyaya, M.Sc. Statistics
+    -    Assistan Professor of Tribhuvan University
 
 
 
