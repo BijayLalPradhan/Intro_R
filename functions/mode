@@ -1,0 +1,5 @@
+Mode1 <- function(x) {
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x, ux)))]}
+dd=c(35,37,37,39,40,40,41,41,43,43,43,43,44,44,44,44,44,45,46,46,46,46,48)
+Mode1(dd)
