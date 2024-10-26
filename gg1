@@ -1,0 +1,11 @@
+data4=read.csv("https://raw.githubusercontent.com/BijayLalPradhan/survey1/main/remit.csv")
+head(data4,1)
+data4$gender=ifelse(data4$Sex==1,"Male","Female")
+table(data4$gender)
+data4$Ethnicity1=factor(data4$Ethnicity,levels=c(1,2,3,4,5),labels=c("Brahmin","Chhetri",
+                        "Newar","Gurung","Magar"))
+head(data4$Ethnicity1)
+data4$Religion1=factor(data4$Religion,levels=1:4,labels=c("Hindu","Buddhist","Kirat","Cristian"))
+tab1=table(data4$Religion1,data4$gender)
+barplot(tab1,col=c("red","blue","green","yellow"),main="Ethnicity distribution according to Gender")
+abline(h=0)
